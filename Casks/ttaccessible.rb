@@ -22,7 +22,7 @@ cask "ttaccessible" do
   end
 
   auto_updates true
-  depends_on macos: ">= :sonoma"
+  depends_on macos: :sonoma
   depends_on arch: :arm64
 
   app "ttaccessible.app"
