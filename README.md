@@ -16,3 +16,9 @@ brew install --cask <name>
   ```sh
   brew install --cask ttaccessible
   ```
+
+- **vokeymapper** — editor for VoiceOver's QuickNav, Option Key, and Numpad key bindings. Upstream: <https://github.com/heath-toby/VOKeyMapper>
+
+  ```sh
+  brew install --cask vokeymapper
+  ```
