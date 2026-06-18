@@ -28,3 +28,9 @@ brew install --cask <name>
   ```sh
   brew install --cask voiceover-signal-filter
   ```
+
+- **vocr** — OCR utility for VoiceOver users, with optional LLM image description. Self-updates via Sparkle. Upstream: <https://github.com/chigkim/VOCR>
+
+  ```sh
+  brew install --cask vocr
+  ```
