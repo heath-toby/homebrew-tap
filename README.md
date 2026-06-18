@@ -22,3 +22,9 @@ brew install --cask <name>
   ```sh
   brew install --cask vokeymapper
   ```
+
+- **voiceover-signal-filter** — macOS companion to [NVDA-Signal-Filter](https://github.com/heath-toby/NVDA-Signal-Filter) and [orca-signal-filter](https://github.com/heath-toby/orca-signal-filter); announces Signal Desktop typing, sent, and received events through VoiceOver. Upstream: <https://github.com/heath-toby/VoiceOverSignalFilter>
+
+  ```sh
+  brew install --cask voiceover-signal-filter
+  ```
