@@ -1,0 +1,77 @@
+name: bump-casks
+
+# Keeps third-party casks in this tap pinned to the latest upstream
+# release. Useful for casks whose authors have already shipped a new
+# version: without this workflow, `brew install --cask <name>` would
+# pull yesterday's version and let the app's own self-updater catch up
+# on first launch, which is wasteful and slightly confusing for the
+# user.
+#
+# Each job:
+#   1. Queries the upstream repo's latest release via `gh`.
+#   2. Compares against the cask's current `version` line.
+#   3. If different: downloads the asset, recomputes SHA-256,
+#      rewrites the version + sha256 lines, commits to `main`.
+#
+# Add more casks by duplicating the `vocr` job and tweaking the repo /
+# cask path / asset filter.
+
+on:
+  schedule:
+    # Daily at 06:00 UTC.
+    - cron: "0 6 * * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  vocr:
+    name: Bump VOCR (chigkim/VOCR)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Bump cask if upstream is ahead
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          CASK=Casks/vocr.rb
+          UPSTREAM_REPO=chigkim/VOCR
+
+          INFO=$(gh release view --repo "$UPSTREAM_REPO" --json tagName,assets)
+          LATEST=$(printf '%s' "$INFO" | jq -r '.tagName' | sed 's/^v//')
+          URL=$(printf '%s' "$INFO" \
+                | jq -r '.assets[] | select(.name | endswith(".zip")) | .url' \
+                | head -1)
+          CURRENT=$(awk -F'"' '/^[[:space:]]*version /{print $2; exit}' "$CASK")
+
+          echo "Cask version:   $CURRENT"
+          echo "Upstream tag:   v$LATEST"
+          if [ "$LATEST" = "$CURRENT" ]; then
+            echo "Already up to date — nothing to do."
+            exit 0
+          fi
+          if [ -z "$URL" ]; then
+            echo "Could not find a .zip asset on the latest release." >&2
+            exit 1
+          fi
+
+          echo "Fetching $URL"
+          curl -fsSL "$URL" -o /tmp/asset.zip
+          SHA=$(sha256sum /tmp/asset.zip | awk '{print $1}')
+          echo "New SHA-256:    $SHA"
+
+          sed -i \
+            -e "s|^  version \".*\"|  version \"${LATEST}\"|" \
+            -e "s|^  sha256 \".*\"|  sha256 \"${SHA}\"|" \
+            "$CASK"
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "$CASK"
+          git commit -m "vocr: bump to ${LATEST}
+
+Auto-bumped by .github/workflows/bump-casks.yml against the latest
+upstream release at ${UPSTREAM_REPO}."
+          git push
