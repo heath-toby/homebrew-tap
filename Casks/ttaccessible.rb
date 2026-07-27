@@ -1,6 +1,6 @@
 cask "ttaccessible" do
-  version "1.9.0,44"
-  sha256 "7a8818e39133655ddbe07c181aca0130e4ad68cd8bee8b2e9d5ef8b5252a5e6a"
+  version "1.10.0,45"
+  sha256 "cfdaa65e0606d3a56649300c25eca54fddbb39a2019d44dc3798ecfb54f6babe"
 
   url "https://github.com/math65/ttaccessible/releases/download/v#{version.csv.first}/ttaccessible-#{version.csv.first}-#{version.csv.second}.zip",
       verified: "github.com/math65/ttaccessible/"
