@@ -2,8 +2,7 @@ cask "ttaccessible" do
   version "1.12.0,56"
   sha256 "299772d4e5e54494f2b66c3a2cb143fd917115570de649f1a9a44d840ca20c78"
 
-  url "https://github.com/math65/ttaccessible/releases/download/v#{version.csv.first}/ttaccessible-#{version.csv.first}-#{version.csv.second}.zip",
-      verified: "github.com/math65/ttaccessible/"
+  url "https://github.com/math65/ttaccessible/releases/download/v#{version.csv.first}/ttaccessible-#{version.csv.first}-#{version.csv.second}.zip"
   name "TTAccessible"
   desc "Native, fully accessible TeamTalk 5 client for macOS"
   homepage "https://github.com/math65/ttaccessible"
