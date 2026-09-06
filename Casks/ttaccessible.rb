@@ -4,7 +4,7 @@ cask "ttaccessible" do
 
   url "https://github.com/math65/ttaccessible/releases/download/v#{version.csv.first}/ttaccessible-#{version.csv.first}-#{version.csv.second}.zip"
   name "TTAccessible"
-  desc "Native, fully accessible TeamTalk 5 client for macOS"
+  desc "Native, fully accessible TeamTalk 5 client"
   homepage "https://github.com/math65/ttaccessible"
 
   livecheck do
