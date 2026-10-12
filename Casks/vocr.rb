@@ -1,6 +1,6 @@
 cask "vocr" do
-  version "3.0.0"
-  sha256 "67bd23d114d2e70de337a531959868f70740ad876566a5af8ef7031778c50ec2"
+  version "3.1.0"
+  sha256 "28677e91139b38ed53bc69e40753a70fee41291477457f6d5c6707bfc2bb07b2"
 
   url "https://github.com/chigkim/VOCR/releases/download/v#{version}/VOCR_v#{version}.zip"
   name "VOCR"
